@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva práctica</title>
+</head>
+<body>
+<h1>Nueva práctica para
+    <span th:text="${estudiante.nombreCompleto}">Estudiante</span>
+</h1>
+
+<form th:action="@{'/estudiante/' + ${estudiante.id} + '/practicas'}"
+      th:object="${practica}" method="post">
+
+    <div>
+        <label>Empresa:</label>
+        <select th:field="*{empresa}">
+            <option th:each="e : ${empresas}"
+                    th:value="${e}"
+                    th:text="${e.nombre}">
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <label>Profesor supervisor:</label>
+        <select th:field="*{profesorSupervisor}">
+            <option th:each="p : ${profesores}"
+                    th:value="${p}"
+                    th:text="${p.nombre}">
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <label>Fecha inicio:</label>
+        <input type="date" th:field="*{fechaInicio}" required>
+    </div>
+
+    <div>
+        <label>Fecha término:</label>
+        <input type="date" th:field="*{fechaTermino}" required>
+    </div>
+
+    <div>
+        <label>Descripción:</label>
+        <textarea th:field="*{descripcion}" required></textarea>
+    </div>
+
+    <div>
+        <label>Estado:</label>
+        <input type="text" th:field="*{estado}" placeholder="En curso / Finalizada" required>
+    </div>
+
+    <div>
+        <label>Nombre jefe directo:</label>
+        <input type="text" th:field="*{nombreJefeDirecto}" required>
+    </div>
+
+    <div>
+        <label>Correo jefe directo:</label>
+        <input type="email" th:field="*{correoJefeDirecto}" required>
+    </div>
+
+    <div>
+        <label>Teléfono jefe directo:</label>
+        <input type="text" th:field="*{telefonoJefeDirecto}" required>
+    </div>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver</a>
+</body>
+</html>

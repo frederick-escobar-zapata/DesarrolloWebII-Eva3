@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Gestión empresas</title>
+</head>
+<body>
+<h1>Gestión empresas</h1>
+
+<a th:href="@{/profesor}">Volver al panel</a>
+<br/><br/>
+<a th:href="@{/profesor/empresas/nueva}">Nueva empresa</a>
+
+<table border="1" style="margin-top:10px;">
+	<thead>
+	<tr>
+		<th>Nombre</th>
+		<th>Dirección</th>
+		<th>Correo</th>
+		<th>Teléfono</th>
+		<th>Acciones</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="e : ${empresas}">
+		<td th:text="${e.nombre}"></td>
+		<td th:text="${e.direccion}"></td>
+		<td th:text="${e.correo}"></td>
+		<td th:text="${e.telefono}"></td>
+		<td>
+			<a th:href="@{'/profesor/empresas/' + ${e.id} + '/editar'}">Editar</a>
+			<form th:action="@{'/profesor/empresas/' + ${e.id} + '/eliminar'}"
+			      method="post" style="display:inline;">
+				<button type="submit"
+				        onclick="return confirm('¿Eliminar empresa?');">
+					Eliminar
+				</button>
+			</form>
+		</td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

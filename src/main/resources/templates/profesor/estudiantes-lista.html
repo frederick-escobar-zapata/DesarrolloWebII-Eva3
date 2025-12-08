@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Gestión estudiantes</title>
+</head>
+<body>
+<h1>Gestión estudiantes</h1>
+
+<a th:href="@{/profesor}">Volver al panel</a>
+<br/><br/>
+<a th:href="@{/profesor/estudiantes/nuevo}">Nuevo estudiante</a>
+
+<table border="1" style="margin-top:10px;">
+	<thead>
+	<tr>
+		<th>Nombre</th>
+		<th>RUT</th>
+		<th>Carrera</th>
+		<th>Correo</th>
+		<th>Teléfono</th>
+		<th>Acciones</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="e : ${estudiantes}">
+		<td th:text="${e.nombreCompleto}"></td>
+		<td th:text="${e.rut}"></td>
+		<td th:text="${e.carrera}"></td>
+		<td th:text="${e.correo}"></td>
+		<td th:text="${e.telefono}"></td>
+		<td>
+			<a th:href="@{'/profesor/estudiantes/' + ${e.id} + '/editar'}">Editar</a>
+			<form th:action="@{'/profesor/estudiantes/' + ${e.id} + '/eliminar'}"
+			      method="post" style="display:inline;">
+				<button type="submit"
+				        onclick="return confirm('¿Eliminar estudiante?');">
+					Eliminar
+				</button>
+			</form>
+		</td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

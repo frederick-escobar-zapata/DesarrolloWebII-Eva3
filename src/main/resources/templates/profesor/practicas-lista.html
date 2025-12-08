@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de prácticas</title>
+</head>
+<body>
+<h1>Gestión de prácticas</h1>
+
+<a th:href="@{/profesor}">Volver al panel</a>
+<br/><br/>
+
+<a th:href="@{/profesor/practicas/nueva}">Agregar práctica</a>
+
+<form th:action="@{/profesor/practicas}" method="get" style="margin-top:10px;">
+    <label for="rut">Filtrar por RUT de estudiante:</label>
+    <input type="text" id="rut" name="rut" th:value="${rutBuscado}">
+    <button type="submit">Buscar</button>
+    <a th:href="@{/profesor/practicas}">Limpiar filtro</a>
+</form>
+
+<table border="1" style="margin-top:10px;">
+    <thead>
+    <tr>
+        <th>Estudiante</th>
+        <th>Empresa</th>
+        <th>Profesor Supervisor</th>
+        <th>Fecha inicio</th>
+        <th>Fecha término</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${practicas}">
+        <!-- Estudiante (si es null, mostrar 'Sin estudiante') -->
+        <td th:text="${p.estudiante != null ? p.estudiante.nombreCompleto : 'Sin estudiante'}"></td>
+
+        <td th:text="${p.empresa != null ? p.empresa.nombre : 'Sin empresa'}"></td>
+        <!-- cambiar .nombre -> .nombreCompleto -->
+        <td th:text="${p.profesorSupervisor != null ? p.profesorSupervisor.nombreCompleto : 'Sin profesor'}"></td>
+        <td th:text="${p.fechaInicio}"></td>
+        <td th:text="${p.fechaTermino}"></td>
+        <td th:text="${p.estado}"></td>
+        <td>
+            <!-- Solo mostrar acciones de detalles si hay estudiante -->
+            <span th:if="${p.estudiante != null}">
+                <a th:href="@{'/profesor/practicas/' + ${p.id}}">Ver</a>
+                |
+                <a th:href="@{'/profesor/practicas/' + ${p.id} + '/editar'}">Editar</a>
+                <form th:action="@{'/profesor/practicas/' + ${p.id} + '/eliminar'}"
+                      method="post" style="display:inline;">
+                    <button type="submit"
+                            onclick="return confirm('¿Seguro que desea eliminar esta práctica?');">
+                        Eliminar
+                    </button>
+                </form>
+                |
+                <a th:href="@{'/profesor/practicas/' + ${p.id} + '/detalles'}">Ver detalles</a>
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/login}">Salir</a>
+</body>
+</html>

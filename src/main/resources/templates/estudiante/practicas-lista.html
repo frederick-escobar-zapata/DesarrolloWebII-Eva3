@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis prácticas</title>
+</head>
+<body>
+<h1 th:text="'Prácticas de ' + ${estudiante.nombreCompleto}">Prácticas</h1>
+
+<a th:href="@{/login}">Salir</a>
+<br/><br/>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Empresa</th>
+        <th>Profesor Supervisor</th>
+        <th>Fecha inicio</th>
+        <th>Fecha término</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${practicas}">
+        <td th:text="${p.empresa != null ? p.empresa.nombre : 'Sin empresa'}"></td>
+        <td th:text="${p.profesorSupervisor != null ? p.profesorSupervisor.nombreCompleto : 'Sin profesor'}"></td>
+        <td th:text="${p.fechaInicio}"></td>
+        <td th:text="${p.fechaTermino}"></td>
+        <td th:text="${p.estado}"></td>
+        <td>
+            <a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas/' + ${p.id} + '/detalles'}">
+                Ver / agregar detalles
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

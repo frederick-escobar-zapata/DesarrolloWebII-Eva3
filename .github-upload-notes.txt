@@ -1,0 +1,58 @@
+Aquí anoto los pasos que voy a seguir para subir mi proyecto a GitHub desde esta carpeta.
+
+1. Primero verifico que estoy en la carpeta raíz del proyecto (donde está el pom.xml):
+
+   cd "c:\Users\Frederick Escobar\Desktop\2025\3 trimestre\DESARROLLO DE SOFTWARE WEB II\Unidad 3\Evalaucion 3\parcticas"
+
+2. Aquí inicializo el repositorio git local dentro de mi proyecto:
+
+   git init
+
+3. Ahora agrego el remoto que apunta a mi repositorio ya creado en GitHub:
+
+   git remote add origin https://github.com/frederick-escobar-zapata/DesarrolloWebII-Eva3.git
+
+   (si ya existía y quiero cambiarlo, uso:
+    git remote set-url origin https://github.com/frederick-escobar-zapata/DesarrolloWebII-Eva3.git
+   )
+
+4. Antes de hacer commit, creo un archivo .gitignore para no subir target, configuraciones del IDE, etc.
+   Puedo crear el archivo con contenido típico de un proyecto Maven/Spring Boot:
+
+   (crear c:\Users\...\parcticas\.gitignore con algo como:)
+   /target/
+   /.idea/
+   /.project
+   /.classpath
+   /.settings/
+   /bin/
+   *.iml
+   .DS_Store
+   .vscode/
+
+5. Luego agrego todos los archivos al staging area de git:
+
+   git add .
+
+6. Aquí creo el primer commit con un mensaje descriptivo:
+
+   git commit -m "Primera versión del proyecto de prácticas (Spring Boot)"
+
+7. Ahora subo mi rama local (normalmente main o master) al remoto en GitHub.
+   Si estoy usando main:
+
+   git branch -M main
+   git push -u origin main
+
+   Si estoy usando master:
+
+   git branch -M master
+   git push -u origin master
+
+8. A partir de aquí, cada vez que haga cambios haré:
+
+   git add .
+   git commit -m "Mensaje describiendo los cambios que hice"
+   git push
+
+Con estos pasos dejo mi proyecto ya versionado y sincronizado con el repo remoto de GitHub.

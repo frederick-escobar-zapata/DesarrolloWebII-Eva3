@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Nuevo detalle de práctica</title>
+</head>
+<body>
+<h1>Nuevo detalle de práctica</h1>
+
+<p>
+	<strong>Estudiante:</strong>
+	<span th:text="${estudiante.nombreCompleto}"></span>
+</p>
+<p>
+	<strong>Empresa:</strong>
+	<span th:text="${practica.empresa.nombre}"></span>
+</p>
+
+<form th:action="@{'/estudiante/' + ${estudiante.id} + '/practicas/' + ${practica.id} + '/detalles'}"
+      th:object="${detalle}" method="post">
+	<input type="hidden" th:field="*{id}"/>
+
+	<div>
+		<label>Fecha:</label>
+		<input type="date" th:field="*{fecha}" required>
+	</div>
+	<div>
+		<label>Descripción:</label>
+		<textarea th:field="*{descripcion}" rows="3" required></textarea>
+	</div>
+	<div>
+		<label>Horas:</label>
+		<input type="number" th:field="*{horas}" min="1" required>
+	</div>
+
+	<button type="submit">Guardar</button>
+</form>
+
+<a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas/' + ${practica.id} + '/detalles'}">
+	Volver a la lista de detalles
+</a>
+</body>
+</html>

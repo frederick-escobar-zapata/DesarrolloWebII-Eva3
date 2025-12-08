@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Panel del profesor</title>
+</head>
+<body>
+<h1>Panel del profesor</h1>
+
+<ul>
+	<li>
+		<a th:href="@{/profesor/nueva}">Agregar nueva práctica</a>
+	</li>
+	<li>
+		<a th:href="@{/profesor/practicas}">Mostrar todas las prácticas</a>
+	</li>
+	<li>
+		<form th:action="@{/profesor/practicas}" method="get" style="display:inline;">
+			<label for="rut">Mostrar prácticas por RUT del estudiante:</label>
+			<input type="text" id="rut" name="rut" placeholder="Ingrese RUT">
+			<button type="submit">Buscar</button>
+		</form>
+	</li>
+	<li>
+		<span>Eliminar prácticas:</span>
+		<a th:href="@{/profesor/practicas}">(desde la lista, usar botón Eliminar)</a>
+	</li>
+</ul>
+
+<h2>Gestión maestro</h2>
+<ul>
+	<li><a th:href="@{/profesor/estudiantes}">Gestión estudiantes</a></li>
+	<li><a th:href="@{/profesor/empresas}">Gestión empresas</a></li>
+	<li><a th:href="@{/profesor/profesores}">Gestión profesores supervisores</a></li>
+</ul>
+
+<a th:href="@{/login}">Cerrar sesión</a>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${practica.id != null} ? 'Editar práctica' : 'Nueva práctica'">
+        Formulario de práctica
+    </title>
+</head>
+<body>
+<h1 th:text="${practica.id != null} ? 'Editar práctica' : 'Nueva práctica'">Formulario de práctica</h1>
+
+<form th:action="@{/profesor/practicas}" th:object="${practica}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <!-- SEGMENTO 1: Datos del estudiante -->
+    <fieldset style="margin-bottom: 15px;">
+        <legend>Datos del estudiante</legend>
+
+        <div>
+            <label>Estudiante:</label>
+            <select th:field="*{estudiante}" required>
+                <option value="" disabled th:selected="${practica.estudiante == null}">
+                    -- Seleccione estudiante --
+                </option>
+                <option th:each="e : ${estudiantes}"
+                        th:value="${e.id}"
+                        th:text="${e.nombreCompleto}">
+                </option>
+            </select>
+        </div>
+
+        <div th:if="${practica.estudiante != null}" style="margin-top: 8px; font-size: 0.9em;">
+            <p><strong>RUT:</strong> <span th:text="${practica.estudiante.rut}"></span></p>
+            <p><strong>Carrera:</strong> <span th:text="${practica.estudiante.carrera}"></span></p>
+            <p><strong>Correo:</strong> <span th:text="${practica.estudiante.correo}"></span></p>
+            <p><strong>Teléfono:</strong> <span th:text="${practica.estudiante.telefono}"></span></p>
+        </div>
+    </fieldset>
+
+    <!-- SEGMENTO 2: Datos del profesor supervisor -->
+    <fieldset style="margin-bottom: 15px;">
+        <legend>Datos del profesor supervisor</legend>
+
+        <div>
+            <label>Profesor supervisor:</label>
+            <select th:field="*{profesorSupervisor}" required>
+                <option value="" disabled th:selected="${practica.profesorSupervisor == null}">
+                    -- Seleccione profesor --
+                </option>
+                <option th:each="p : ${profesores}"
+                        th:value="${p.id}"
+                        th:text="${p.nombreCompleto}">
+                </option>
+            </select>
+        </div>
+
+        <div th:if="${practica.profesorSupervisor != null}" style="margin-top: 8px; font-size: 0.9em;">
+            <p><strong>Carrera:</strong> <span th:text="${practica.profesorSupervisor.carrera}"></span></p>
+            <p><strong>Correo:</strong> <span th:text="${practica.profesorSupervisor.correo}"></span></p>
+            <p><strong>Teléfono:</strong> <span th:text="${practica.profesorSupervisor.telefono}"></span></p>
+        </div>
+    </fieldset>
+
+    <!-- SEGMENTO 3: Datos de la empresa -->
+    <fieldset style="margin-bottom: 15px;">
+        <legend>Datos de la empresa</legend>
+
+        <div>
+            <label>Empresa:</label>
+            <select th:field="*{empresa}" required>
+                <option value="" disabled th:selected="${practica.empresa == null}">
+                    -- Seleccione empresa --
+                </option>
+                <option th:each="em : ${empresas}"
+                        th:value="${em.id}"
+                        th:text="${em.nombre}">
+                </option>
+            </select>
+        </div>
+
+        <div th:if="${practica.empresa != null}" style="margin-top: 8px; font-size: 0.9em;">
+            <p><strong>Dirección:</strong> <span th:text="${practica.empresa.direccion}"></span></p>
+            <p><strong>Correo:</strong> <span th:text="${practica.empresa.correo}"></span></p>
+            <p><strong>Teléfono:</strong> <span th:text="${practica.empresa.telefono}"></span></p>
+        </div>
+    </fieldset>
+
+    <!-- SEGMENTO 4: Datos de la práctica -->
+    <fieldset style="margin-bottom: 15px;">
+        <legend>Datos de la práctica</legend>
+
+        <div>
+            <label>Fecha inicio:</label>
+            <input type="date" th:field="*{fechaInicio}" required>
+        </div>
+
+        <div>
+            <label>Fecha término:</label>
+            <input type="date" th:field="*{fechaTermino}" required>
+        </div>
+
+        <div>
+            <label>Estado:</label>
+            <input type="text" th:field="*{estado}" required>
+        </div>
+
+        <div>
+            <label>Descripción:</label>
+            <textarea th:field="*{descripcion}" rows="3" required></textarea>
+        </div>
+    </fieldset>
+
+    <!-- SEGMENTO 5: Datos del jefe directo -->
+    <fieldset style="margin-bottom: 15px;">
+        <legend>Datos del jefe directo</legend>
+
+        <div>
+            <label>Nombre jefe directo:</label>
+            <input type="text" th:field="*{nombreJefeDirecto}" required>
+        </div>
+
+        <div>
+            <label>Correo jefe directo:</label>
+            <input type="email" th:field="*{correoJefeDirecto}" required>
+        </div>
+
+        <div>
+            <label>Teléfono jefe directo:</label>
+            <input type="text" th:field="*{telefonoJefeDirecto}" required>
+        </div>
+    </fieldset>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<a th:href="@{/profesor/practicas}">Volver a la lista</a>
+</body>
+</html>

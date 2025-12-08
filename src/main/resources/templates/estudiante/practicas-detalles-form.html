@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Detalles de práctica</title>
+</head>
+<body>
+<h1>Detalles de la práctica</h1>
+
+<p>
+	<strong>Estudiante:</strong>
+	<span th:text="${estudiante.nombreCompleto}"></span>
+</p>
+<p>
+	<strong>Empresa:</strong>
+	<span th:text="${practica.empresa.nombre}"></span>
+</p>
+<p>
+	<strong>Profesor supervisor:</strong>
+	<span th:text="${practica.profesorSupervisor.nombre}"></span>
+</p>
+<p>
+	<strong>Fechas:</strong>
+	<span th:text="${practica.fechaInicio}"></span> -
+	<span th:text="${practica.fechaTermino}"></span>
+</p>
+
+<form th:action="@{'/estudiante/' + ${estudiante.id} + '/practicas/' + ${practica.id} + '/detalles'}"
+      method="post">
+
+	<div>
+		<label>Actividades realizadas:</label><br>
+		<textarea name="actividadesRealizadas" rows="5" cols="60"
+		          th:text="${practica.actividadesRealizadas}"></textarea>
+	</div>
+
+	<div>
+		<label>Observaciones del estudiante:</label><br>
+		<textarea name="observacionesEstudiante" rows="5" cols="60"
+		          th:text="${practica.observacionesEstudiante}"></textarea>
+	</div>
+
+	<button type="submit">Guardar detalles</button>
+</form>
+
+<a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver</a>
+</body>
+</html>
