@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
@@ -38,7 +39,8 @@ public class AutenticacionControlador {
     // Aquí proceso el submit del login y decido a dónde envío al usuario según su rol
     @PostMapping("/login")
     public String procesarLogin(@RequestParam String correo,
-                                @RequestParam String contrasena) {
+                                @RequestParam String contrasena,
+                                HttpSession session) {
 
         // Primero intento autenticar al usuario con el servicio
         Optional<Usuario> usuarioOpt = autenticacionServicio.autenticar(correo, contrasena);
@@ -50,15 +52,21 @@ public class AutenticacionControlador {
 
         Usuario usuario = usuarioOpt.get();
 
-        // Si es estudiante, lo envío a su listado de prácticas
+        // Guardamos info básica en sesión para controlar permisos en los controladores
+        session.setAttribute("rol", usuario.getRol());
         if ("ESTUDIANTE".equalsIgnoreCase(usuario.getRol())) {
             Long idEstudiante = usuario.getEstudiante() != null ? usuario.getEstudiante().getId() : null;
             if (idEstudiante != null) {
+                session.setAttribute("estudianteId", idEstudiante);
                 return "redirect:/estudiante/" + idEstudiante + "/practicas";
             }
             // Si por alguna razón no tiene estudiante asociado, considero esto un error
             return "redirect:/login?error=true";
         } else if ("PROFESOR".equalsIgnoreCase(usuario.getRol())) {
+            Long idProfesor = usuario.getProfesorSupervisor() != null ? usuario.getProfesorSupervisor().getId() : null;
+            if (idProfesor != null) {
+                session.setAttribute("profesorId", idProfesor);
+            }
             // Si es profesor, lo mando al panel principal de profesor
             return "redirect:/profesor";
         }

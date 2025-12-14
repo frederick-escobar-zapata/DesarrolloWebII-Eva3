@@ -11,6 +11,7 @@ import ipss.parcticas.servicios.PracticaServicio;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
@@ -55,7 +56,11 @@ public class ProfesorPracticaControlador {
 
     // Aquí preparo el formulario para crear una nueva práctica
     @GetMapping("/practicas/nueva")
-    public String mostrarFormularioNueva(Model model) {
+    public String mostrarFormularioNueva(Model model, HttpSession session) {
+        String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+        if (!"PROFESOR".equalsIgnoreCase(rol)) {
+            return "redirect:/login?error=true";
+        }
         // Creo una práctica vacía y cargo las listas necesarias para el combo
         model.addAttribute("practica", new Practica());
         model.addAttribute("estudiantes", estudianteRepositorio.findAll());
@@ -92,7 +97,13 @@ public class ProfesorPracticaControlador {
     @PostMapping("/practicas")
     public String guardar(@Valid @ModelAttribute("practica") Practica practica,
                           BindingResult bindingResult,
-                          Model model) {
+                          Model model,
+                          HttpSession session) {
+
+        String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+        if (!"PROFESOR".equalsIgnoreCase(rol)) {
+            return "redirect:/login?error=true";
+        }
 
         // Si hay errores de validación, vuelvo a mostrar el formulario con las listas cargadas
         if (bindingResult.hasErrors()) {
@@ -124,7 +135,11 @@ public class ProfesorPracticaControlador {
 
     // Aquí preparo el formulario para editar una práctica existente
     @GetMapping("/practicas/{id}/editar")
-    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model, HttpSession session) {
+        String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+        if (!"PROFESOR".equalsIgnoreCase(rol)) {
+            return "redirect:/login?error=true";
+        }
         Practica practica = practicaServicio.buscarPorId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Práctica no encontrada"));
 
@@ -138,7 +153,11 @@ public class ProfesorPracticaControlador {
 
     // Aquí elimino una práctica completa desde el panel del profesor
     @PostMapping("/practicas/{id}/eliminar")
-    public String eliminar(@PathVariable Long id) {
+    public String eliminar(@PathVariable Long id, HttpSession session) {
+        String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+        if (!"PROFESOR".equalsIgnoreCase(rol)) {
+            return "redirect:/login?error=true";
+        }
         practicaServicio.eliminar(id);
         return "redirect:/profesor/practicas";
     }

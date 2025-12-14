@@ -5,11 +5,14 @@
     <title th:text="${practica.id != null} ? 'Editar práctica' : 'Nueva práctica'">
         Formulario de práctica
     </title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1 th:text="${practica.id != null} ? 'Editar práctica' : 'Nueva práctica'">Formulario de práctica</h1>
+<div class="container">
+  <div class="card">
+    <h1 th:text="${practica.id != null} ? 'Editar práctica' : 'Nueva práctica'">Formulario de práctica</h1>
 
-<form th:action="@{/profesor/practicas}" th:object="${practica}" method="post">
+    <form th:action="@{/profesor/practicas}" th:object="${practica}" method="post">
     <input type="hidden" th:field="*{id}"/>
 
     <!-- SEGMENTO 1: Datos del estudiante -->
@@ -128,11 +131,15 @@
             <label>Teléfono jefe directo:</label>
             <input type="text" th:field="*{telefonoJefeDirecto}" required>
         </div>
-    </fieldset>
+        </fieldset>
 
-    <button type="submit">Guardar</button>
-</form>
+            <button type="submit" class="btn">Guardar</button>
+        </form>
 
-<a th:href="@{/profesor/practicas}">Volver a la lista</a>
+        <div style="margin-top:12px;">
+            <a th:href="@{/profesor/practicas}">Volver a la lista</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

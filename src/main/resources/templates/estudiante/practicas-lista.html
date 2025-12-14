@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis prácticas</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1 th:text="'Prácticas de ' + ${estudiante.nombreCompleto}">Prácticas</h1>
+<div class="container">
+    <div class="card">
+        <h1 th:text="'Prácticas de ' + ${estudiante.nombreCompleto}">Prácticas</h1>
 
-<a th:href="@{/login}">Salir</a>
-<br/><br/>
+        <div class="top-actions">
+            <a class="btn danger" th:href="@{/login}">Salir</a>
+            <span th:if="${session.rol == 'ESTUDIANTE' and session.estudianteId == estudiante.id}">
+                <a class="btn" th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas/nueva'}">Agregar práctica</a>
+            </span>
+        </div>
 
-<table border="1">
+        <table>
     <thead>
     <tr>
         <th>Empresa</th>
@@ -36,6 +43,9 @@
     </tr>
     </tbody>
 </table>
+
+    </div>
+</div>
 
 </body>
 </html>

@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Nueva práctica</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1>Nueva práctica para
-    <span th:text="${estudiante.nombreCompleto}">Estudiante</span>
-</h1>
+<div class="container">
+    <div class="card">
+        <h1>Nueva práctica para
+            <span th:text="${estudiante.nombreCompleto}">Estudiante</span>
+        </h1>
 
-<form th:action="@{'/estudiante/' + ${estudiante.id} + '/practicas'}"
-      th:object="${practica}" method="post">
+        <form th:action="@{'/estudiante/' + ${estudiante.id} + '/practicas'}"
+                    th:object="${practica}" method="post">
 
     <div>
         <label>Empresa:</label>
-        <select th:field="*{empresa}">
+        <select th:field="*{empresa}" required>
+            <option value="" disabled th:selected="${practica.empresa == null}">-- Seleccione empresa --</option>
             <option th:each="e : ${empresas}"
-                    th:value="${e}"
+                    th:value="${e.id}"
                     th:text="${e.nombre}">
             </option>
         </select>
@@ -24,10 +28,11 @@
 
     <div>
         <label>Profesor supervisor:</label>
-        <select th:field="*{profesorSupervisor}">
+        <select th:field="*{profesorSupervisor}" required>
+            <option value="" disabled th:selected="${practica.profesorSupervisor == null}">-- Seleccione profesor --</option>
             <option th:each="p : ${profesores}"
-                    th:value="${p}"
-                    th:text="${p.nombre}">
+                    th:value="${p.id}"
+                    th:text="${p.nombreCompleto}">
             </option>
         </select>
     </div>
@@ -67,9 +72,13 @@
         <input type="text" th:field="*{telefonoJefeDirecto}" required>
     </div>
 
-    <button type="submit">Guardar</button>
-</form>
+            <button type="submit" class="btn">Guardar</button>
+        </form>
 
-<a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver</a>
+        <div style="margin-top:12px;">
+            <a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
