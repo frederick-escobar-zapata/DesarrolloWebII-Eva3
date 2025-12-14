@@ -61,5 +61,9 @@ export PATH="$JAVA_HOME/bin:$PATH"
 - Estilos: `src/main/resources/static/css/styles.css`
 - Seed: `src/main/java/ipss/parcticas/DataLoader.java`
 
+## 8. Video de Demostracion
+
+- link:  https://youtu.be/6kn5YTyGnkA
+
 
 
