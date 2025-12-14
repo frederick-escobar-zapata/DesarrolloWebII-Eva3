@@ -3,51 +3,46 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Detalles de la práctica</title>
+		<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1>Detalles de la práctica</h1>
+<div class="container">
+	<div class="card">
+		<div class="top-actions">
+			<a class="btn danger" th:href="@{/profesor/practicas}">Volver a prácticas</a>
+			<a class="btn" th:href="@{'/profesor/practicas/' + ${practica.id} + '/detalles/nuevo'}">Agregar nuevo detalle</a>
+		</div>
 
-<p>
-	<strong>Estudiante:</strong>
-	<span th:text="${practica.estudiante.nombreCompleto}"></span>
-</p>
-<p>
-	<strong>Empresa:</strong>
-	<span th:text="${practica.empresa.nombre}"></span>
-</p>
-<p>
-	<strong>Profesor supervisor:</strong>
-	<span th:text="${practica.profesorSupervisor.nombreCompleto}"></span>
-</p>
-<p>
-	<strong>Fechas:</strong>
-	<span th:text="${practica.fechaInicio}"></span> -
-	<span th:text="${practica.fechaTermino}"></span>
-</p>
-<p>
-	<strong>Estado:</strong>
-	<span th:text="${practica.estado}"></span>
-</p>
+		<h1>Detalles de la práctica</h1>
 
-<h2>Registros de detalle del estudiante</h2>
+		<section class="detail-section">
+			<ul class="detail-list">
+				<li class="detail-item"><strong>Estudiante:</strong><div class="detail-value" th:text="${practica.estudiante.nombreCompleto}"></div></li>
+				<li class="detail-item"><strong>Empresa:</strong><div class="detail-value" th:text="${practica.empresa.nombre}"></div></li>
+				<li class="detail-item"><strong>Profesor supervisor:</strong><div class="detail-value" th:text="${practica.profesorSupervisor.nombreCompleto}"></div></li>
+				<li class="detail-item"><strong>Fechas:</strong><div class="detail-value" th:text="${practica.fechaInicio} + ' - ' + ${practica.fechaTermino}"></div></li>
+				<li class="detail-item"><strong>Estado:</strong><div class="detail-value" th:text="${practica.estado}"></div></li>
+			</ul>
+		</section>
 
-<table border="1">
-	<thead>
-	<tr>
-		<th>Fecha</th>
-		<th>Descripción</th>
-		<th>Horas</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr th:each="d : ${detalles}">
-		<td th:text="${d.fecha}"></td>
-		<td th:text="${d.descripcion}"></td>
-		<td th:text="${d.horas}"></td>
-	</tr>
-	</tbody>
-</table>
-
-<a th:href="@{/profesor/practicas}">Volver a prácticas</a>
+		<h2>Registros de detalle del estudiante</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Fecha</th>
+					<th>Descripción</th>
+					<th>Horas</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="d : ${detalles}">
+					<td th:text="${d.fecha}"></td>
+					<td th:text="${d.descripcion}"></td>
+					<td th:text="${d.horas}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 </body>
 </html>

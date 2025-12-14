@@ -4,14 +4,22 @@
 	<meta charset="UTF-8">
 	<title>Gestión estudiantes</title>
 </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión estudiantes</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
 <body>
-<h1>Gestión estudiantes</h1>
+<div class="container">
+    <div class="card">
+        <h1>Gestión estudiantes</h1>
 
-<a th:href="@{/profesor}">Volver al panel</a>
-<br/><br/>
-<a th:href="@{/profesor/estudiantes/nuevo}">Nuevo estudiante</a>
+        <div class="top-actions">
+            <a class="btn" th:href="@{/profesor}">Volver al panel</a>
+            <a class="btn" th:href="@{/profesor/estudiantes/nuevo}">Nuevo estudiante</a>
+        </div>
 
-<table border="1" style="margin-top:10px;">
+        <table style="margin-top:10px;">
 	<thead>
 	<tr>
 		<th>Nombre</th>

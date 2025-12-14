@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar detalle de práctica</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <h1>Agregar detalle</h1>
+
+    <form th:action="@{'/profesor/practicas/' + ${practica.id} + '/detalles'}" th:object="${detalle}" method="post">
+
+      <div>
+        <label>Fecha:</label>
+        <input type="date" th:field="*{fecha}" required>
+      </div>
+
+      <div>
+        <label>Descripción:</label>
+        <textarea th:field="*{descripcion}" rows="4" required></textarea>
+      </div>
+
+      <div>
+        <label>Horas:</label>
+        <input type="number" th:field="*{horas}" min="0" required>
+      </div>
+
+      <div class="form-actions">
+        <a class="btn danger" th:href="@{/profesor/practicas}">Cancelar</a>
+        <button type="submit" class="btn">Guardar detalle</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

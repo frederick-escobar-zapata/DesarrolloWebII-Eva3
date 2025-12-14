@@ -3,52 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle de práctica</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1>Detalle de práctica</h1>
+<div class="container">
+    <div class="card">
+        <h1>Detalle de práctica</h1>
 
-<h2>Datos del estudiante</h2>
-<ul>
-    <li><strong>Nombre:</strong> <span th:text="${estudiante.nombreCompleto}"></span></li>
-    <li><strong>RUT:</strong> <span th:text="${estudiante.rut}"></span></li>
-    <li><strong>Carrera:</strong> <span th:text="${estudiante.carrera}"></span></li>
-    <li><strong>Correo:</strong> <span th:text="${estudiante.correo}"></span></li>
-    <li><strong>Teléfono:</strong> <span th:text="${estudiante.telefono}"></span></li>
-</ul>
+        <section class="detail-section">
+            <h2>Datos del estudiante</h2>
+            <ul class="detail-list">
+                <li class="detail-item"><strong>Nombre:</strong><div class="detail-value" th:text="${estudiante.nombreCompleto}"></div></li>
+                <li class="detail-item"><strong>RUT:</strong><div class="detail-value" th:text="${estudiante.rut}"></div></li>
+                <li class="detail-item"><strong>Carrera:</strong><div class="detail-value" th:text="${estudiante.carrera}"></div></li>
+                <li class="detail-item"><strong>Correo:</strong><div class="detail-value" th:text="${estudiante.correo}"></div></li>
+                <li class="detail-item"><strong>Teléfono:</strong><div class="detail-value" th:text="${estudiante.telefono}"></div></li>
+            </ul>
+        </section>
 
-<h2>Datos del profesor supervisor</h2>
-<ul>
-    <li><strong>Nombre:</strong> <span th:text="${profesor.nombreCompleto}"></span></li>
-    <li><strong>Carrera:</strong> <span th:text="${profesor.carrera}"></span></li>
-    <li><strong>Correo:</strong> <span th:text="${profesor.correo}"></span></li>
-    <li><strong>Teléfono:</strong> <span th:text="${profesor.telefono}"></span></li>
-</ul>
+        <section class="detail-section">
+            <h2>Datos del profesor supervisor</h2>
+            <ul class="detail-list">
+                <li class="detail-item"><strong>Nombre:</strong><div class="detail-value" th:text="${profesor.nombreCompleto}"></div></li>
+                <li class="detail-item"><strong>Carrera:</strong><div class="detail-value" th:text="${profesor.carrera}"></div></li>
+                <li class="detail-item"><strong>Correo:</strong><div class="detail-value" th:text="${profesor.correo}"></div></li>
+                <li class="detail-item"><strong>Teléfono:</strong><div class="detail-value" th:text="${profesor.telefono}"></div></li>
+            </ul>
+        </section>
 
-<h2>Datos de la empresa</h2>
-<ul>
-    <li><strong>Nombre:</strong> <span th:text="${empresa.nombre}"></span></li>
-    <li><strong>Dirección:</strong> <span th:text="${empresa.direccion}"></span></li>
-    <li><strong>Correo:</strong> <span th:text="${empresa.correo}"></span></li>
-    <li><strong>Teléfono:</strong> <span th:text="${empresa.telefono}"></span></li>
-</ul>
+        <section class="detail-section">
+            <h2>Datos de la empresa</h2>
+            <ul class="detail-list">
+                <li class="detail-item"><strong>Nombre:</strong><div class="detail-value" th:text="${empresa.nombre}"></div></li>
+                <li class="detail-item"><strong>Dirección:</strong><div class="detail-value" th:text="${empresa.direccion}"></div></li>
+                <li class="detail-item"><strong>Correo:</strong><div class="detail-value" th:text="${empresa.correo}"></div></li>
+                <li class="detail-item"><strong>Teléfono:</strong><div class="detail-value" th:text="${empresa.telefono}"></div></li>
+            </ul>
+        </section>
 
-<h2>Datos de la práctica</h2>
-<ul>
-    <li><strong>Fecha inicio:</strong> <span th:text="${practica.fechaInicio}"></span></li>
-    <li><strong>Fecha término:</strong> <span th:text="${practica.fechaTermino}"></span></li>
-    <li><strong>Estado:</strong> <span th:text="${practica.estado}"></span></li>
-    <li><strong>Descripción:</strong> <span th:text="${practica.descripcion}"></span></li>
-</ul>
+        <section class="detail-section">
+            <h2>Datos de la práctica</h2>
+            <ul class="detail-list">
+                <li class="detail-item"><strong>Fecha inicio:</strong><div class="detail-value" th:text="${practica.fechaInicio}"></div></li>
+                <li class="detail-item"><strong>Fecha término:</strong><div class="detail-value" th:text="${practica.fechaTermino}"></div></li>
+                <li class="detail-item"><strong>Estado:</strong><div class="detail-value" th:text="${practica.estado}"></div></li>
+                <li class="detail-item"><strong>Descripción:</strong><div class="detail-value" th:text="${practica.descripcion}"></div></li>
+            </ul>
+        </section>
 
-<h2>Datos del jefe directo</h2>
-<ul>
-    <li><strong>Nombre:</strong> <span th:text="${practica.nombreJefeDirecto}"></span></li>
-    <li><strong>Correo:</strong> <span th:text="${practica.correoJefeDirecto}"></span></li>
-    <li><strong>Teléfono:</strong> <span th:text="${practica.telefonoJefeDirecto}"></span></li>
-</ul>
+        <section class="detail-section">
+            <h2>Datos del jefe directo</h2>
+            <ul class="detail-list">
+                <li class="detail-item"><strong>Nombre:</strong><div class="detail-value" th:text="${practica.nombreJefeDirecto}"></div></li>
+                <li class="detail-item"><strong>Correo:</strong><div class="detail-value" th:text="${practica.correoJefeDirecto}"></div></li>
+                <li class="detail-item"><strong>Teléfono:</strong><div class="detail-value" th:text="${practica.telefonoJefeDirecto}"></div></li>
+            </ul>
+        </section>
 
-<div style="margin-top: 20px;">
-    <a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver a mis prácticas</a>
+        <div class="detail-actions">
+            <a class="btn danger" th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver a mis prácticas</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -4,32 +4,39 @@
 	<meta charset="UTF-8">
 	<title>Empresa</title>
 </head>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
 <body>
-<h1 th:text="${empresa.id != null} ? 'Editar empresa' : 'Nueva empresa'">Empresa</h1>
+<div class="container">
+	<div class="card">
+		<h1 th:text="${empresa.id != null} ? 'Editar empresa' : 'Nueva empresa'">Empresa</h1>
 
-<form th:action="@{/profesor/empresas}" th:object="${empresa}" method="post">
-	<input type="hidden" th:field="*{id}"/>
+		<form th:action="@{/profesor/empresas}" th:object="${empresa}" method="post">
+			<input type="hidden" th:field="*{id}"/>
 
-	<div>
-		<label>Nombre:</label>
-		<input type="text" th:field="*{nombre}" required>
-	</div>
-	<div>
-		<label>Dirección:</label>
-		<input type="text" th:field="*{direccion}" required>
-	</div>
-	<div>
-		<label>Correo:</label>
-		<input type="email" th:field="*{correo}" required>
-	</div>
-	<div>
-		<label>Teléfono:</label>
-		<input type="text" th:field="*{telefono}" required>
-	</div>
+			<div>
+				<label>Nombre:</label>
+				<input type="text" th:field="*{nombre}" required>
+			</div>
+			<div>
+				<label>Dirección:</label>
+				<input type="text" th:field="*{direccion}" required>
+			</div>
+			<div>
+				<label>Correo:</label>
+				<input type="email" th:field="*{correo}" required>
+			</div>
+			<div>
+				<label>Teléfono:</label>
+				<input type="text" th:field="*{telefono}" required>
+			</div>
 
-	<button type="submit">Guardar</button>
-</form>
-
-<a th:href="@{/profesor/empresas}">Volver</a>
+			<div class="form-actions">
+				<button class="btn" type="submit">Guardar</button>
+				<a class="btn ghost" th:href="@{/profesor/empresas}">Volver</a>
+			</div>
+		</form>
+	</div>
+</div>
 </body>
 </html>

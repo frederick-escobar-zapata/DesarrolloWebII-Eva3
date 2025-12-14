@@ -9,6 +9,7 @@ import ipss.parcticas.repositorios.PracticaRepositorio;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/estudiante")
@@ -51,9 +52,10 @@ public class EstudianteDetalleControlador {
 
     // Aquí preparo el formulario para que el estudiante pueda registrar un nuevo detalle de su práctica
     @GetMapping("/{idEstudiante}/practicas/{idPractica}/detalles/nuevo")
-    public String nuevoDetalle(@PathVariable Long idEstudiante,
-                               @PathVariable Long idPractica,
-                               Model model) {
+        public String nuevoDetalle(@PathVariable Long idEstudiante,
+                                                           @PathVariable Long idPractica,
+                                                           Model model,
+                                                           HttpSession session) {
         Estudiante estudiante = estudianteRepositorio.findById(idEstudiante)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
         Practica practica = practicaRepositorio.findById(idPractica)
@@ -63,18 +65,25 @@ public class EstudianteDetalleControlador {
         DetallePractica detalle = new DetallePractica();
         detalle.setPractica(practica);
 
-        model.addAttribute("estudiante", estudiante);
-        model.addAttribute("practica", practica);
-        model.addAttribute("detalle", detalle);
+                // Only professors can create details (students are not allowed)
+                String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+                if (!"PROFESOR".equalsIgnoreCase(rol)) {
+                        return "redirect:/estudiante/" + idEstudiante + "/practicas/" + idPractica + "/detalles";
+                }
 
-        return "estudiante/detalles-form";
+                model.addAttribute("estudiante", estudiante);
+                model.addAttribute("practica", practica);
+                model.addAttribute("detalle", detalle);
+
+                return "estudiante/detalles-form";
     }
 
     // Aquí guardo el nuevo detalle que el estudiante ingresa
     @PostMapping("/{idEstudiante}/practicas/{idPractica}/detalles")
-    public String guardarDetalle(@PathVariable Long idEstudiante,
-                                 @PathVariable Long idPractica,
-                                 @ModelAttribute("detalle") DetallePractica detalle) {
+        public String guardarDetalle(@PathVariable Long idEstudiante,
+                                                                 @PathVariable Long idPractica,
+                                                                 @ModelAttribute("detalle") DetallePractica detalle,
+                                                                 HttpSession session) {
 
         // Vuelvo a cargar estudiante y práctica para asegurarme de que existen
         Estudiante estudiante = estudianteRepositorio.findById(idEstudiante)
@@ -82,14 +91,20 @@ public class EstudianteDetalleControlador {
         Practica practica = practicaRepositorio.findById(idPractica)
                 .orElseThrow(() -> new IllegalArgumentException("Práctica no encontrada"));
 
-        // Aquí asocio correctamente el detalle con el estudiante y la práctica
-        detalle.setEstudiante(estudiante);
-        detalle.setPractica(practica);
+                // Solo los profesores pueden crear detalles (los estudiantes no tienen permitido)
+                String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+                if (!"PROFESOR".equalsIgnoreCase(rol)) {
+                        return "redirect:/estudiante/" + idEstudiante + "/practicas/" + idPractica + "/detalles";
+                }
 
-        // Ahora sí guardo el detalle en la base de datos
-        detallePracticaRepositorio.save(detalle);
+                // Aquí asocio correctamente el detalle con el estudiante y la práctica
+                detalle.setEstudiante(estudiante);
+                detalle.setPractica(practica);
 
-        // Al terminar, vuelvo a la lista de detalles de la misma práctica
-        return "redirect:/estudiante/" + idEstudiante + "/practicas/" + idPractica + "/detalles";
+                // Ahora sí guardo el detalle en la base de datos
+                detallePracticaRepositorio.save(detalle);
+
+                // Al terminar, vuelvo a la lista de detalles de la misma práctica
+                return "redirect:/estudiante/" + idEstudiante + "/practicas/" + idPractica + "/detalles";
     }
 }

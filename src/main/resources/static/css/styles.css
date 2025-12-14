@@ -95,13 +95,18 @@ textarea {
 
 .btn {
   display: inline-block;
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-radius: 8px;
   background: var(--accent);
   color: white;
   text-decoration: none;
   border: none;
   cursor: pointer;
+  min-width: 120px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 14px rgba(43, 110, 246, 0.08);
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
 }
 .btn.ghost {
   background: transparent;
@@ -112,6 +117,42 @@ textarea {
   background: var(--danger);
 }
 
+.detail-section {
+  margin-bottom: 18px;
+}
+.detail-section h2 {
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+.detail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px 18px;
+  grid-template-columns: 1fr;
+}
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.detail-item strong {
+  width: 180px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.detail-value {
+  color: #111827;
+  word-break: break-word;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 10px;
+}
 table {
   width: 100%;
   border-collapse: collapse;
@@ -141,10 +182,18 @@ table thead th {
 
 .top-actions {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.top-actions .btn:first-child {
+  margin-right: auto;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(43, 110, 246, 0.1);
 }
 
 footer {
@@ -220,4 +269,58 @@ footer {
 .login-card textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 4px 12px rgba(43, 110, 246, 0.08);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.form-actions input[type="text"],
+.form-actions input[type="email"],
+.form-actions select {
+  flex: 1 1 auto;
+}
+
+.detail-list .detail-value {
+  font-size: 1rem;
+  color: #111827;
+}
+
+@media (max-width: 700px) {
+  .top-actions {
+    flex-wrap: wrap;
+  }
+  .top-actions .btn:first-child {
+    margin-right: 0;
+  }
+  .btn {
+    min-width: 100px;
+    padding: 10px 12px;
+  }
+  .detail-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .detail-actions {
+    justify-content: flex-start;
+  }
+}
+
+.actions .btn {
+  min-width: auto;
+  padding: 6px 10px;
+  font-size: 0.88rem;
+  border-radius: 6px;
+}
+.actions .btn.ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(43, 110, 246, 0.08);
+}
+.actions form {
+  display: inline;
 }

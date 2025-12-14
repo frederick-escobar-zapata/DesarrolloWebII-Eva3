@@ -13,12 +13,7 @@
             <a class="btn" th:href="@{/profesor/practicas/nueva}">Agregar práctica</a>
         </div>
 
-        <form th:action="@{/profesor/practicas}" method="get" class="top-actions" style="align-items:center;">
-            <label for="rut">Filtrar por RUT:</label>
-            <input type="text" id="rut" name="rut" th:value="${rutBuscado}">
-            <button type="submit" class="btn">Buscar</button>
-            <a th:href="@{/profesor/practicas}">Limpiar filtro</a>
-        </form>
+        <!-- Search by RUT removed to simplify the UI -->
 
         <table style="margin-top:10px;">
     <thead>
@@ -44,21 +39,15 @@
         <td th:text="${p.fechaTermino}"></td>
         <td th:text="${p.estado}"></td>
         <td>
-            <!-- Solo mostrar acciones de detalles si hay estudiante -->
-            <span th:if="${p.estudiante != null}">
-                <a th:href="@{'/profesor/practicas/' + ${p.id}}">Ver</a>
-                |
-                <a th:href="@{'/profesor/practicas/' + ${p.id} + '/editar'}">Editar</a>
-                <form th:action="@{'/profesor/practicas/' + ${p.id} + '/eliminar'}"
-                      method="post" style="display:inline;">
-                    <button type="submit"
-                            onclick="return confirm('¿Seguro que desea eliminar esta práctica?');">
-                        Eliminar
-                    </button>
+            <!-- Solo mostrar acciones si hay estudiante -->
+            <div class="actions" th:if="${p.estudiante != null}">
+                <a class="btn ghost" th:href="@{'/profesor/practicas/' + ${p.id}}">Ver</a>
+                <a class="btn ghost" th:href="@{'/profesor/practicas/' + ${p.id} + '/editar'}">Editar</a>
+                <form th:action="@{'/profesor/practicas/' + ${p.id} + '/eliminar'}" method="post">
+                    <button class="btn danger" type="submit"
+                            onclick="return confirm('¿Seguro que desea eliminar esta práctica?');">Eliminar</button>
                 </form>
-                |
-                <a th:href="@{'/profesor/practicas/' + ${p.id} + '/detalles'}">Ver detalles</a>
-            </span>
+            </div>
         </td>
     </tr>
     </tbody>

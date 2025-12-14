@@ -177,4 +177,47 @@ public class ProfesorPracticaControlador {
 
         return "profesor/detalles-lista";
     }
+
+    // Formulario para que un profesor agregue un detalle (horas/observaciones) a una práctica
+    @GetMapping("/practicas/{id}/detalles/nuevo")
+    public String nuevoDetalleProfesor(@PathVariable Long id, Model model, HttpSession session) {
+        String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+        if (!"PROFESOR".equalsIgnoreCase(rol)) {
+            return "redirect:/login?error=true";
+        }
+
+        Practica practica = practicaServicio.buscarPorId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Práctica no encontrada"));
+
+        DetallePractica detalle = new DetallePractica();
+        detalle.setPractica(practica);
+
+        model.addAttribute("practica", practica);
+        model.addAttribute("detalle", detalle);
+
+        return "profesor/detalles-form";
+    }
+
+    // Guardar detalle creado por el profesor
+    @PostMapping("/practicas/{id}/detalles")
+    public String guardarDetalleProfesor(@PathVariable Long id,
+                                         @ModelAttribute("detalle") DetallePractica detalle,
+                                         HttpSession session) {
+        String rol = session.getAttribute("rol") != null ? session.getAttribute("rol").toString() : null;
+        if (!"PROFESOR".equalsIgnoreCase(rol)) {
+            return "redirect:/login?error=true";
+        }
+
+        Practica practica = practicaServicio.buscarPorId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Práctica no encontrada"));
+
+        detalle.setPractica(practica);
+        if (practica.getEstudiante() != null) {
+            detalle.setEstudiante(practica.getEstudiante());
+        }
+
+        detallePracticaRepositorio.save(detalle);
+
+        return "redirect:/profesor/practicas/" + id + "/detalles";
+    }
 }

@@ -4,36 +4,41 @@
 	<meta charset="UTF-8">
 	<title>Panel del profesor</title>
 </head>
+<head>
+	<meta charset="UTF-8">
+	<title>Panel del profesor</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
 <body>
-<h1>Panel del profesor</h1>
+<div class="container">
+	<div class="card">
+		<h1>Panel del profesor</h1>
 
-<ul>
-	<li>
-		<a th:href="@{/profesor/nueva}">Agregar nueva práctica</a>
-	</li>
-	<li>
-		<a th:href="@{/profesor/practicas}">Mostrar todas las prácticas</a>
-	</li>
-	<li>
-		<form th:action="@{/profesor/practicas}" method="get" style="display:inline;">
-			<label for="rut">Mostrar prácticas por RUT del estudiante:</label>
-			<input type="text" id="rut" name="rut" placeholder="Ingrese RUT">
-			<button type="submit">Buscar</button>
-		</form>
-	</li>
-	<li>
-		<span>Eliminar prácticas:</span>
-		<a th:href="@{/profesor/practicas}">(desde la lista, usar botón Eliminar)</a>
-	</li>
-</ul>
+		<div class="top-actions">
+			<a class="btn danger" th:href="@{/login}">Cerrar sesión</a>
+			<a class="btn" th:href="@{/profesor/nueva}">Agregar nueva práctica</a>
+			<a class="btn" th:href="@{/profesor/practicas}">Mostrar todas las prácticas</a>
+		</div>
 
-<h2>Gestión maestro</h2>
-<ul>
-	<li><a th:href="@{/profesor/estudiantes}">Gestión estudiantes</a></li>
-	<li><a th:href="@{/profesor/empresas}">Gestión empresas</a></li>
-	<li><a th:href="@{/profesor/profesores}">Gestión profesores supervisores</a></li>
-</ul>
+		<section class="detail-section">
+			<h2>Gestión</h2>
+			<div class="detail-list">
+				<div class="detail-item">
+					<div class="detail-value">Estudiantes</div>
+					<div class="detail-actions"><a class="btn" th:href="@{/profesor/estudiantes}">Administrar</a></div>
+				</div>
+				<div class="detail-item">
+					<div class="detail-value">Empresas</div>
+					<div class="detail-actions"><a class="btn" th:href="@{/profesor/empresas}">Administrar</a></div>
+				</div>
+				<div class="detail-item">
+					<div class="detail-value">Profesores supervisores</div>
+					<div class="detail-actions"><a class="btn" th:href="@{/profesor/profesores}">Administrar</a></div>
+				</div>
+			</div>
+		</section>
 
-<a th:href="@{/login}">Cerrar sesión</a>
+	</div>
+</div>
 </body>
 </html>

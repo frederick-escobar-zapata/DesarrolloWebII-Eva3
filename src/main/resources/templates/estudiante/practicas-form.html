@@ -54,7 +54,11 @@
 
     <div>
         <label>Estado:</label>
-        <input type="text" th:field="*{estado}" placeholder="En curso / Finalizada" required>
+        <select th:field="*{estado}" required>
+            <option value="" disabled th:selected="${practica.estado == null}">-- Seleccione estado --</option>
+            <option th:value="'En curso'" th:selected="${practica.estado == 'En curso'}">En curso</option>
+            <option th:value="'Finalizada'" th:selected="${practica.estado == 'Finalizada'}">Finalizada</option>
+        </select>
     </div>
 
     <div>
@@ -72,12 +76,11 @@
         <input type="text" th:field="*{telefonoJefeDirecto}" required>
     </div>
 
+        <div class="form-actions">
+            <a class="btn danger" th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver</a>
             <button type="submit" class="btn">Guardar</button>
-        </form>
-
-        <div style="margin-top:12px;">
-            <a th:href="@{'/estudiante/' + ${estudiante.id} + '/practicas'}">Volver</a>
         </div>
+        </form>
     </div>
 </div>
 </body>
